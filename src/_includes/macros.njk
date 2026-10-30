@@ -1,8 +1,9 @@
 {% macro card(p, extra="", trending=false) -%}
+{%- set isSample = p.data.sample -%}
 <a class="card rv {{ extra }}" href="{{ p.url }}">
-  <div class="cover"><span class="chip">{{ p.data.category }}</span>{% if trending %}<span class="chip right">✦ New</span>{% endif %}
+  <div class="cover"><span class="chip">{{ p.data.category }}</span>{% if trending %}<span class="chip right">✦ Featured</span>{% endif %}
     {% if p.data.cover %}<img src="{{ p.data.cover }}" alt="{{ p.data.cover_alt or p.data.title }}" loading="lazy">{% else %}<div class="art">{% scene p.data.slug %}</div>{% endif %}</div>
-  <div class="meta"><span>{{ p.date | displayDate }}</span><span>•</span><span>{{ p.data.read_time or (p.content | readTime) }} min read</span></div>
+  <div class="meta"><span>{{ "Coming soon" if isSample else (p.date | displayDate) }}</span><span>•</span><span>{{ p.data.read_time or (p.templateContent | readTime) }} min read</span></div>
   <h3>{{ p.data.title }}</h3>
   <p class="ex">{{ p.data.meta_description | excerpt(150) }}</p>
   <span class="read">Read more <span class="ar">→</span></span>

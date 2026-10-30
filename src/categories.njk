@@ -6,5 +6,5 @@ description: Browse Kaleido guides by topic, from AI tools and automation to run
 ---
 <div class="wrap">
   <div class="pagehead"><h1>All categories</h1><p>Hover a tile to preview the topic, click to open it.</p></div>
-  <div class="tiles">{% for c in categories %}<a class="tile rv" href="/category/{{ c.slug }}/"><div class="art">{% scene loop.index0 + 5 %}</div><b class="ic">{{ c.icon }}</b><span>{{ c.name }}</span><small>{{ (collections.posts | byCategory(c.name)).length }}</small></a>{% endfor %}</div>
+  <div class="tiles">{% for c in categories %}<a class="tile rv" href="/category/{{ c.slug }}/"><div class="art">{% scene loop.index0 + 5 %}</div><b class="ic">{{ c.icon }}</b><span>{{ c.name }}</span><small>{{ (collections.feed | byCategory(c.name)).length }}</small></a>{% endfor %}</div>
 </div>

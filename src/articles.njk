@@ -8,10 +8,10 @@ description: Every Kaleido guide, newest first. Filter by topic or search by key
 <div class="wrap">
   <div class="pagehead"><h1>All articles</h1><p>Every guide we have published, newest first. Filter by topic or search.</p></div>
   <div class="filters" id="filters">
-    <button class="on" data-f="All">All</button>{% for c in categories %}{% if (collections.posts | byCategory(c.name)).length %}<button data-f="{{ c.name }}">{{ c.name }}</button>{% endif %}{% endfor %}
+    <button class="on" data-f="All">All</button>{% for c in categories %}{% if (collections.feed | byCategory(c.name)).length %}<button data-f="{{ c.name }}">{{ c.name }}</button>{% endif %}{% endfor %}
   </div>
-  {% if collections.posts.length %}
-  <div class="grid g4" id="all">{% for p in collections.posts %}<div class="item" data-cat="{{ p.data.category }}" data-text="{{ (p.data.title + ' ' + p.data.meta_description + ' ' + (p.data.primary_keyword or '')) | lower }}" style="display:contents">{{ card(p) }}</div>{% endfor %}</div>
+  {% if collections.feed.length %}
+  <div class="grid g4" id="all">{% for p in collections.feed %}<div class="item" data-cat="{{ p.data.category }}" data-text="{{ (p.data.title + ' ' + p.data.meta_description + ' ' + (p.data.primary_keyword or '')) | lower }}" style="display:contents">{{ card(p) }}</div>{% endfor %}</div>
   <p id="none" class="empty" hidden>No articles match that search yet.</p>
   {% else %}<div class="empty">The first guides are on their way.</div>{% endif %}
 </div>

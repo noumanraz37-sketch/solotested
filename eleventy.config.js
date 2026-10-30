@@ -1,6 +1,7 @@
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItAttrs from "markdown-it-attrs";
+import { SHOW_SAMPLES, FILL_TO, makeSamples } from "./samples.js";
 
 // Illustrated cover art (same generator as the original design), rendered at build time.
 const PAL = [["#f08a2d","#ffd9ad","#b8500d"],["#b9d8a3","#f4f9e8","#5f8a44"],["#d7e3f2","#fff","#7893b5"],["#1f6f8c","#dff4fb","#0d3f52"],["#c2302b","#ffe3d6","#6e120f"],["#f3c34d","#fff6d6","#a37a10"],["#8b5cf6","#e9ddff","#3c1e87"],["#e9e5df","#fff","#8a7e6b"],["#1b3a6b","#cfe0ff","#0a1a36"],["#2d7a5a","#d4f3e2","#123d2b"],["#ffd9c7","#fff","#ff5e3a"],["#17161b","#8de3ff","#c7ff3a"]];
@@ -20,6 +21,10 @@ function scene(i) {
 }
 const hash = (s = "") => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7);
 const slugify = (s = "") => String(s).toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// A sample is replaced when a real post has the same slug or the same title
+const norm = (t = "") => String(t).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+const isReplaced = (s, real) => real.some((p) => p.data.slug === s.data.slug || norm(p.data.title) === norm(s.data.title));
 
 export default function (eleventyConfig) {
   const md = markdownIt({ html: true, linkify: true, typographer: true })
@@ -54,6 +59,27 @@ export default function (eleventyConfig) {
       .filter((p) => !p.data.draft && (process.env.ELEVENTY_RUN_MODE === "serve" || process.env.PREVIEW || p.date.getTime() <= now))
       .sort((a, b) => b.date - a.date);
   });
+
+  // Samples not yet replaced by a real post with the same slug
+  eleventyConfig.addCollection("samples", (api) => {
+    if (!SHOW_SAMPLES) return [];
+    const real = api.getFilteredByGlob("src/posts/*.md").filter((p) => !p.data.draft);
+    return makeSamples().filter((s) => !isReplaced(s, real));
+  });
+  // Everything shown in lists: real posts first, then samples to fill empty spots
+  eleventyConfig.addCollection("feed", (api) => {
+    const now = Date.now();
+    const real = api.getFilteredByGlob("src/posts/*.md")
+      .filter((p) => !p.data.draft && (process.env.ELEVENTY_RUN_MODE === "serve" || process.env.PREVIEW || p.date.getTime() <= now))
+      .sort((a, b) => b.date - a.date);
+    if (!SHOW_SAMPLES || real.length >= FILL_TO) return real;
+    const fill = makeSamples().filter((s) => !isReplaced(s, real)).slice(0, FILL_TO - real.length);
+    return real.concat(fill);
+  });
+  // Featured: posts marked featured: true, then newest. Popular: posts marked popular: true, then the rest.
+  eleventyConfig.addFilter("featured", (feed = [], n = 3) => feed.filter((p) => p.data.featured).concat(feed.filter((p) => !p.data.featured)).slice(0, n));
+  eleventyConfig.addFilter("without", (feed = [], ...lists) => { const used = new Set(lists.flat().map((p) => p.url)); return feed.filter((p) => !used.has(p.url)); });
+  eleventyConfig.addFilter("popular", (feed = [], n = 6) => feed.filter((p) => p.data.popular).concat(feed.filter((p) => !p.data.popular)).slice(0, n));
 
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+pagination:
+  data: collections.samples
+  size: 1
+  alias: s
+permalink: "/preview/{{ s.data.slug }}/"
+noindex: true
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ s.data.title }}"
+---
+{%- from "macros.njk" import newsletter -%}
+<div class="wrap">
+  <div class="art-head">
+    <nav class="crumbs"><a href="/">Home</a><span>/</span><span>{{ s.data.category }}</span></nav>
+    <h1>{{ s.data.title }}</h1>
+    <p class="lede">{{ s.data.meta_description }}</p>
+    <div class="byline"><div class="who"><i>{{ site.author.initials }}</i><div><b>{{ site.author.name }}</b><span>Coming soon</span></div></div></div>
+  </div>
+  <div class="art-cover"><div class="art">{% scene s.data.slug %}</div></div>
+  <div class="empty" style="margin-bottom:40px">This guide is being written and tested right now. Join the weekly email to get it the day it goes live, or <a href="/articles/" style="text-decoration:underline">browse published guides</a>.</div>
+  {{ newsletter("newsletter") }}
+</div>
