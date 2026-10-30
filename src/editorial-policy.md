@@ -2,13 +2,13 @@
 layout: page.njk
 permalink: /editorial-policy/
 title: Editorial policy
-intro: How Kaleido researches, writes, uses AI and keeps guides up to date.
-description: How Kaleido researches and writes its guides, how we use AI tools, and how we correct mistakes.
+intro: How SoloTested researches, writes, uses AI and keeps guides up to date.
+description: How SoloTested researches and writes its guides, how we use AI tools, and how we correct mistakes.
 last_updated: 2026-10-30
 ---
-## Who writes Kaleido
+## Who writes SoloTested
 
-Kaleido is written and edited by [Nouman Raza](/author/nouman-raza/), a graphic designer and creative strategist who uses AI tools and automation in client work every day. Every guide carries a real byline.
+SoloTested is written and edited by [Nouman Raza](/author/nouman-raza/), a graphic designer and creative strategist who uses AI tools and automation in client work every day. Every guide carries a real byline.
 
 ## How we research
 
@@ -23,7 +23,7 @@ We use AI tools to help research topics, organize notes and draft sections. Ever
 
 ## Independence
 
-Kaleido does not sell software. Some guides contain affiliate links, which pay us a commission if you buy (see our [affiliate disclosure](/affiliate-disclosure/)). Commissions never decide which tools we recommend or how we rank them, and we list real drawbacks for every tool we cover.
+SoloTested does not sell software. Some guides contain affiliate links, which pay us a commission if you buy (see our [affiliate disclosure](/affiliate-disclosure/)). Commissions never decide which tools we recommend or how we rank them, and we list real drawbacks for every tool we cover.
 
 ## Updates and corrections
 

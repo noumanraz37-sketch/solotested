@@ -9,7 +9,7 @@ permalink: /
 {%- set pop = (feed | without(top, fresh)) | popular(6) -%}
 <div class="wrap">
   <div class="pagehead" style="padding-block:56px 30px">
-    <h1>AI and automation,<br>explained honestly</h1>
+    <h1>AI tools, tested<br>for people who work alone</h1>
     <p>Tested guides to AI tools, automation and running a small business, written for freelancers, solo founders and small teams.</p>
   </div>
   <div class="grid g3">{% for p in top %}{{ card(p, "", true) }}{% endfor %}</div>
@@ -43,5 +43,5 @@ permalink: /
 
 <section class="block"><div class="wrap about-hero rv" style="padding-block:20px">
   <div class="vid" style="aspect-ratio:1.2"><div class="art">{% scene 8 %}</div></div>
-  <div><h2 style="font-size:clamp(28px,3.6vw,40px)">Why Kaleido exists</h2><p style="color:var(--fg-2);margin-top:14px;max-width:440px">Most "best AI tools" lists are written by the companies selling the tools. Kaleido is independent. Every guide is written for someone running a small operation who needs a tool to work this week, with real prices, real limits and a clear verdict.</p><a class="btn" href="/about/" style="margin-top:22px">Read more <span class="ar">→</span></a></div>
+  <div><h2 style="font-size:clamp(28px,3.6vw,40px)">Why SoloTested exists</h2><p style="color:var(--fg-2);margin-top:14px;max-width:440px">Most "best AI tools" lists are written by the companies selling the tools. SoloTested is independent. Every guide is written for someone running a small operation who needs a tool to work this week, with real prices, real limits and a clear verdict.</p><a class="btn" href="/about/" style="margin-top:22px">Read more <span class="ar">→</span></a></div>
 </div></section>

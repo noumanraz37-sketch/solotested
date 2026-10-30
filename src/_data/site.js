@@ -1,9 +1,9 @@
 // Netlify sets URL to the site's primary address (your custom domain once connected).
 export default {
-  name: "Kaleido",
+  name: "SoloTested",
   url: (process.env.URL || "https://kaleido-magazine.netlify.app").replace(/\/$/, ""),
-  tagline: "Honest guides to AI and automation for freelancers and small teams",
-  description: "Kaleido publishes honest, tested guides to AI tools, automation and running a small business, written for freelancers, solo founders and small teams.",
+  tagline: "AI tools and automations, tested for people who work alone",
+  description: "SoloTested publishes honest, tested guides to AI tools, automation and running a one-person business, written for freelancers, solo founders and small teams.",
   email: "nouman@noumanraza.com",
   year: new Date().getFullYear(),
   author: {

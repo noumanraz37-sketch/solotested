@@ -1,11 +1,11 @@
-# Kaleido
+# SoloTested
 
 Honest, tested guides to AI and automation for freelancers and small teams.
 Built with [Eleventy](https://www.11ty.dev/) and deployed on Netlify. Every push to `main` rebuilds the site.
 
 ## Publish a post
 1. Add a Markdown file to `src/posts/` named after its slug, e.g. `src/posts/make-vs-n8n-freelancers.md`.
-2. Use the front matter from the Kaleido post template (title, seo_title, meta_description, slug, category, date, faq, ...).
+2. Use the front matter from the SoloTested post template (title, seo_title, meta_description, slug, category, date, faq, ...).
 3. Commit and push to `main`. Netlify builds and publishes in about a minute.
 
 - `draft: true` keeps a post off the live site.

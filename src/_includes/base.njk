@@ -16,20 +16,20 @@
 <meta property="og:description" content="{{ pageDesc }}">
 <meta property="og:url" content="{{ canonical }}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111115'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EK%3C/text%3E%3Ccircle cx='24' cy='21' r='2.2' fill='%237a2cf5'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111115'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3ES%3C/text%3E%3Ccircle cx='24' cy='21' r='2.2' fill='%237a2cf5'/%3E%3C/svg%3E">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
-<script>document.documentElement.classList.add('js');(function(){var t='light';try{t=localStorage.getItem('kaleido-theme')||'light'}catch(e){}document.documentElement.dataset.theme=t;})();</script>
+<script>document.documentElement.classList.add('js');(function(){var t='light';try{t=localStorage.getItem('st-theme')||'light'}catch(e){}document.documentElement.dataset.theme=t;})();</script>
 
 </head>
 <body>
 <div class="topbar">Honest, tested guides to AI and automation. <a href="#newsletter">Get the weekly email</a></div>
 <header class="site">
   <div class="wrap nav">
-    <a class="logo" href="/" aria-label="Kaleido home">Kaleido<i></i></a>
+    <a class="logo" href="/" aria-label="SoloTested home">SoloTested<i></i></a>
     <nav class="menu" id="menu" aria-label="Main">
       {%- set nav = [["Home","/"],["Articles","/articles/"],["Categories","/categories/"],["About","/about/"],["Contact","/contact/"]] %}
       {%- for n in nav %}
@@ -49,20 +49,20 @@
 
 <footer><div class="wrap">
   <div class="fgrid">
-    <div><a class="logo" href="/">Kaleido<i></i></a><p>{{ site.description }}</p>
+    <div><a class="logo" href="/">SoloTested<i></i></a><p>{{ site.description }}</p>
       <div class="socials">{% for name, url in site.author.links %}<a href="{{ url }}" rel="noopener" target="_blank" aria-label="{{ name }}">{{ name | first }}{{ name[1] }}</a>{% endfor %}</div></div>
     <div><h4>Pages</h4><ul><li><a href="/">Home</a></li><li><a href="/articles/">Articles</a></li><li><a href="/categories/">Categories</a></li><li><a href="/author/{{ site.author.slug }}/">Author</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
     <div><h4>Categories</h4><ul>{% for c in categories | limit(6) %}<li><a href="/category/{{ c.slug }}/">{{ c.name }}</a></li>{% endfor %}</ul></div>
     <div><h4>Policies</h4><ul><li><a href="/editorial-policy/">Editorial policy</a></li><li><a href="/affiliate-disclosure/">Affiliate disclosure</a></li><li><a href="/privacy-policy/">Privacy policy</a></li><li><a href="/terms/">Terms of use</a></li></ul></div>
   </div>
-  <div class="fbottom"><span>© {{ site.year }} Kaleido. All rights reserved.</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/affiliate-disclosure/">Disclosure</a></span></div>
+  <div class="fbottom"><span>© {{ site.year }} SoloTested. All rights reserved.</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/affiliate-disclosure/">Disclosure</a></span></div>
 </div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
 (function(){
   var $=function(s){return document.querySelector(s)};
-  $('#theme').onclick=function(){var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('kaleido-theme',r.dataset.theme)}catch(e){}};
+  $('#theme').onclick=function(){var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('st-theme',r.dataset.theme)}catch(e){}};
   $('#burger').onclick=function(){$('#menu').classList.toggle('open')};
   // reveal on scroll
   var els=document.querySelectorAll('.rv');

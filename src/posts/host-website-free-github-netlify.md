@@ -27,7 +27,7 @@ faq:
 
 **You can put a website live for free in about 15 minutes:** upload its files to a GitHub repository, then import that repository into Netlify. Netlify gives you a live `yoursite.netlify.app` address, free HTTPS, and redeploys automatically every time you change a file on GitHub.
 
-I set up this exact flow for Kaleido on 30 October 2026. Below is every step, plus one thing most tutorials skip: Netlify's free plan now runs on credits, and if you deploy too often, your site can be paused.
+I set up this exact flow for SoloTested on 30 October 2026. Below is every step, plus one thing most tutorials skip: Netlify's free plan now runs on credits, and if you deploy too often, your site can be paused.
 
 **Key takeaways**
 
@@ -95,7 +95,7 @@ Click **Deploy**. The first deploy of a small site usually finishes in under a m
 
 ## Step 5: Open your live site
 
-When the deploy finishes, your site is live at `https://your-project-name.netlify.app`. Open it and click through every page. Kaleido's first deploy was live within about a minute of clicking Deploy.
+When the deploy finishes, your site is live at `https://your-project-name.netlify.app`. Open it and click through every page. SoloTested's first deploy was live within about a minute of clicking Deploy.
 
 From now on, **every change you commit to the `main` branch on GitHub redeploys the site automatically.** You never upload to Netlify directly again.
 
@@ -122,7 +122,7 @@ On the credit-based **Free plan** (checked on Netlify's docs, 30 October 2026):
 - A site that deploys **once a day** (30 deploys) needs 450 credits a month before any traffic. That is over the free limit.
 - If you update often, **batch changes** into one commit a day or less, upgrade to a paid plan, or use a host with more generous build limits for static sites.
 
-[NOUMAN: your take, which option you chose for Kaleido and why]
+[NOUMAN: your take, which option you chose for SoloTested and why]
 
 ## Common problems and fixes
 

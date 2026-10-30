@@ -21,7 +21,7 @@ layout: base.njk
   <div class="art-layout">
     <aside class="toc">{% if headings.length %}<div class="t">On this page <span>⌃</span></div>{% for h in headings %}<a href="#{{ h.id }}" class="{{ 'on' if loop.first }}">{{ h.text }}</a>{% endfor %}{% endif %}</aside>
     <article class="prose">
-      {% if affiliate %}<div class="callout"><b>Disclosure:</b> Some links in this post are affiliate links. If you buy through them, Kaleido earns a commission at no extra cost to you. It never changes our verdicts. <a href="/affiliate-disclosure/">How we make money</a>.</div>{% endif %}
+      {% if affiliate %}<div class="callout"><b>Disclosure:</b> Some links in this post are affiliate links. If you buy through them, SoloTested earns a commission at no extra cost to you. It never changes our verdicts. <a href="/affiliate-disclosure/">How we make money</a>.</div>{% endif %}
       {{ content | safe }}
       {% if faq and faq.length %}
       <section class="faq"><h2 id="faq">Frequently asked questions</h2>
