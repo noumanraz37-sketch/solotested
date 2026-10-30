@@ -33,7 +33,7 @@
     <nav class="menu" id="menu" aria-label="Main">
       {%- set nav = [["Home","/"],["Articles","/articles/"],["Categories","/categories/"],["About","/about/"],["Contact","/contact/"]] %}
       {%- for n in nav %}
-      <a href="{{ n[1] }}" class="{{ 'active' if (page.url == n[1]) or (n[1] == '/articles/' and layout == 'post.njk') or (n[1] == '/categories/' and '/category/' in page.url) }}">{{ n[0] }}</a>
+      <a href="{{ n[1] }}" class="{{ 'active' if (page.url == n[1]) or (n[1] == '/articles/' and layout == 'post.njk') or (n[1] == '/categories/' and page.url and '/category/' in page.url) }}">{{ n[0] }}</a>
       {%- endfor %}
     </nav>
     <form class="search" action="/articles/" method="get" role="search"><input name="q" type="search" placeholder="Search articles…" aria-label="Search articles"><span aria-hidden="true">⌕</span></form>
