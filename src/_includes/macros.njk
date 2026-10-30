@@ -1,0 +1,30 @@
+{% macro card(p, extra="", trending=false) -%}
+<a class="card rv {{ extra }}" href="{{ p.url }}">
+  <div class="cover"><span class="chip">{{ p.data.category }}</span>{% if trending %}<span class="chip right">✦ New</span>{% endif %}
+    {% if p.data.cover %}<img src="{{ p.data.cover }}" alt="{{ p.data.cover_alt or p.data.title }}" loading="lazy">{% else %}<div class="art">{% scene p.data.slug %}</div>{% endif %}</div>
+  <div class="meta"><span>{{ p.date | displayDate }}</span><span>•</span><span>{{ p.data.read_time or (p.content | readTime) }} min read</span></div>
+  <h3>{{ p.data.title }}</h3>
+  <p class="ex">{{ p.data.meta_description | excerpt(150) }}</p>
+  <span class="read">Read more <span class="ar">→</span></span>
+</a>
+{%- endmacro %}
+
+{% macro newsletter(id="newsletter") -%}
+<div class="loop rv" id="{{ id }}">
+  <div class="l">
+    <h3>One useful email a week. No fluff.</h3>
+    <p style="color:var(--fg-2);max-width:360px">The best new guide, one tool worth trying, and one automation you can set up in under an hour. Written for freelancers and small teams.</p>
+  </div>
+  <div class="r">
+    <h3>Stay in the loop.</h3>
+    <p>New guides and tested tools, straight to your inbox.</p>
+    <form class="sub" name="newsletter" method="POST" action="/?subscribed=1" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="newsletter">
+      <label class="hidden-field">Company <input name="company"></label>
+      <input name="email" type="email" placeholder="name@email.com" aria-label="Email address" required>
+      <button class="btn" type="submit">Subscribe</button>
+    </form>
+    <small>Easy to join, easy to unsubscribe. Zero spam.</small>
+  </div>
+</div>
+{%- endmacro %}

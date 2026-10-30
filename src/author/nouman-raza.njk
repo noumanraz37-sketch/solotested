@@ -1,0 +1,15 @@
+---
+layout: base.njk
+permalink: /author/nouman-raza/
+title: Nouman Raza, Founder & Editor
+description: About Nouman Raza, the graphic designer and creative strategist who writes and edits Kaleido.
+---
+{%- from "macros.njk" import card -%}
+<div class="wrap">
+  <div class="cathead"><div class="ic" style="border-radius:50%;background:linear-gradient(135deg,#a18cd1,#7a2cf5);color:#fff;font-weight:700;font-size:22px">{{ site.author.initials }}</div>
+    <div><h1>{{ site.author.name }} <span class="pill">{{ site.author.role }}</span></h1>
+    <p>Graphic designer and creative strategist based in Gujranwala, Pakistan. Since 2022, Nouman has gone from designing YouTube thumbnails to static ad creatives to full creative direction for coaching, info-product, DTC and e-commerce brands. He has freelanced since 2023 and uses AI tools and automation every day in that work. Kaleido is where he writes up what actually works.</p>
+    <div class="socials">{% for name, url in site.author.links %}<a href="{{ url }}" rel="noopener me" target="_blank" style="width:auto;padding:0 12px;border-radius:999px">{{ name }}</a>{% endfor %}</div></div><div></div></div>
+  {% if collections.posts.length %}<div class="sec-head"><div><h2>Articles by Nouman</h2></div></div><div class="grid g3">{% for p in collections.posts %}{{ card(p) }}{% endfor %}</div>{% endif %}
+</div>
+<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Person","name":site.author.name,"jobTitle":"Graphic designer and creative strategist","url":site.url + page.url,"sameAs":[site.author.links.LinkedIn, site.author.links.Behance, site.author.links.YouTube]} | json | safe }}</script>

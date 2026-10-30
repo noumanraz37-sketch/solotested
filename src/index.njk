@@ -1,0 +1,48 @@
+---
+layout: base.njk
+permalink: /
+---
+{%- from "macros.njk" import card, newsletter -%}
+{%- set posts = collections.posts -%}
+<div class="wrap">
+  <div class="pagehead" style="padding-block:56px 30px">
+    <h1>AI and automation,<br>explained honestly</h1>
+    <p>Tested guides to AI tools, automation and running a small business, written for freelancers, solo founders and small teams.</p>
+  </div>
+  {% if posts.length %}
+  <div class="grid g3">{% for p in posts | limit(3) %}{{ card(p, "", loop.first) }}{% endfor %}</div>
+  {% else %}
+  <div class="empty">The first guides are on their way. <a href="#newsletter" style="text-decoration:underline">Join the weekly email</a> to get them first.</div>
+  {% endif %}
+</div>
+
+<section class="block band"><div class="wrap">
+  <div class="pagehead" style="padding-block:0 34px"><h2 style="font-size:clamp(28px,3.4vw,38px)">Explore popular categories</h2><p>Hover a folder to peek inside, click to open it.</p></div>
+  <div class="folder-grid">
+    {% for c in categories | limit(8) %}{% set list = posts | byCategory(c.name) %}
+    <a class="folder rv" href="/category/{{ c.slug }}/"><div class="f">{% for i in [0,1,2] %}<div class="pic">{% if list[i] %}{% scene list[i].data.slug %}{% else %}{% scene loop.index0 * 4 + c.slug.length %}{% endif %}</div>{% endfor %}<em>Open {{ c.name }} →</em></div><b>{{ c.name }} <small>{{ list.length }} article{{ "" if list.length == 1 else "s" }}</small></b></a>
+    {% endfor %}
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:34px"><a class="btn" href="/categories/">View all categories <span class="ar">→</span></a></div>
+</div></section>
+
+{% if posts.length > 3 %}
+<section class="block"><div class="wrap">
+  <div class="sec-head"><div><h2>Fresh off the press</h2></div><a class="more" href="/articles/">View all <span class="ar">→</span></a></div>
+  <div class="grid g3">{% for p in posts | limit(6, 3) %}{{ card(p, "wide" if loop.first else "") }}{% endfor %}</div>
+</div></section>
+{% endif %}
+
+<section class="block"><div class="wrap">{{ newsletter() }}</div></section>
+
+{% if posts.length > 9 %}
+<section class="block"><div class="wrap">
+  <div class="sec-head"><div><h2>More guides</h2></div><a class="more" href="/articles/">View all <span class="ar">→</span></a></div>
+  <div class="grid g3">{% for p in posts | limit(6, 9) %}{{ card(p) }}{% endfor %}</div>
+</div></section>
+{% endif %}
+
+<section class="block"><div class="wrap about-hero rv" style="padding-block:20px">
+  <div class="vid" style="aspect-ratio:1.2"><div class="art">{% scene 8 %}</div></div>
+  <div><h2 style="font-size:clamp(28px,3.6vw,40px)">Why Kaleido exists</h2><p style="color:var(--fg-2);margin-top:14px;max-width:440px">Most "best AI tools" lists are written by the companies selling the tools. Kaleido is independent. Every guide is written for someone running a small operation who needs a tool to work this week, with real prices, real limits and a clear verdict.</p><a class="btn" href="/about/" style="margin-top:22px">Read more <span class="ar">→</span></a></div>
+</div></section>

@@ -1,0 +1,70 @@
+---
+layout: base.njk
+---
+{%- from "macros.njk" import card -%}
+{%- set cat = (categories | selectattr("name", "equalto", category) | first) -%}
+{%- set headings = content | toc -%}
+{%- set rt = read_time or (content | readTime) -%}
+<div class="wrap">
+  <div class="art-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>{% if cat %}<a href="/category/{{ cat.slug }}/">{{ category }}</a>{% else %}<span>{{ category }}</span>{% endif %}</nav>
+    <h1>{{ title }}</h1>
+    {% if meta_description %}<p class="lede">{{ meta_description }}</p>{% endif %}
+    <div class="byline">
+      <div class="who"><i>{{ site.author.initials }}</i><div><b><a href="/author/{{ site.author.slug }}/">{{ author }}</a></b><span>{{ site.author.role }}</span></div></div>
+      <span>Published <b>{{ page.date | displayDate }}</b></span>
+      {% if updated and (updated | isoDate) != (page.date | isoDate) %}<span>Updated <b>{{ updated | displayDate }}</b></span>{% endif %}
+      <span>Read time <b>{{ rt }} min</b></span>
+    </div>
+  </div>
+  <div class="art-cover">{% if cover %}<img src="{{ cover }}" alt="{{ cover_alt or title }}" style="width:100%;height:100%;object-fit:cover">{% else %}<div class="art">{% scene slug %}</div>{% endif %}</div>
+  <div class="art-layout">
+    <aside class="toc">{% if headings.length %}<div class="t">On this page <span>⌃</span></div>{% for h in headings %}<a href="#{{ h.id }}" class="{{ 'on' if loop.first }}">{{ h.text }}</a>{% endfor %}{% endif %}</aside>
+    <article class="prose">
+      {% if affiliate %}<div class="callout"><b>Disclosure:</b> Some links in this post are affiliate links. If you buy through them, Kaleido earns a commission at no extra cost to you. It never changes our verdicts. <a href="/affiliate-disclosure/">How we make money</a>.</div>{% endif %}
+      {{ content | safe }}
+      {% if faq and faq.length %}
+      <section class="faq"><h2 id="faq">Frequently asked questions</h2>
+        {% for f in faq %}<details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><p>{{ f.a | md | safe }}</p></details>{% endfor %}
+      </section>
+      {% endif %}
+      <div class="authorbox"><div class="av">{{ site.author.initials }}</div><div><b><a href="/author/{{ site.author.slug }}/">{{ site.author.name }}</a></b><p>{{ site.author.short }}</p></div></div>
+    </article>
+  </div>
+  <div class="share">Share this post <div class="s">
+    <a class="sbtn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ (site.url + page.url) | urlencode }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><button tabindex="-1">in</button></a>
+    <a class="sbtn" href="https://x.com/intent/post?url={{ (site.url + page.url) | urlencode }}&text={{ title | urlencode }}" target="_blank" rel="noopener" aria-label="Share on X"><button tabindex="-1">𝕏</button></a>
+    <a class="sbtn" href="https://www.facebook.com/sharer/sharer.php?u={{ (site.url + page.url) | urlencode }}" target="_blank" rel="noopener" aria-label="Share on Facebook"><button tabindex="-1">f</button></a>
+    <button title="Copy link" id="copylink">⧉</button></div></div>
+  {%- set rel = collections.posts | related(page) -%}
+  {% if rel.length %}<section class="block tight"><div class="sec-head"><div><h2>Keep reading</h2></div></div><div class="grid g3">{% for p in rel %}{{ card(p) }}{% endfor %}</div></section>{% endif %}
+</div>
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": meta_description,
+  "datePublished": page.date | isoDate,
+  "dateModified": (updated or page.date) | isoDate,
+  "mainEntityOfPage": site.url + page.url,
+  "author": { "@type": "Person", "name": site.author.name, "url": site.url + "/author/" + site.author.slug + "/" },
+  "publisher": { "@type": "Organization", "name": site.name, "url": site.url }
+} | json | safe }}</script>
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": site.url + "/" },
+    { "@type": "ListItem", "position": 2, "name": category, "item": site.url + "/category/" + (category | slugify) + "/" },
+    { "@type": "ListItem", "position": 3, "name": title, "item": site.url + page.url }
+  ]
+} | json | safe }}</script>
+{% if faq and faq.length %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in faq %}{"@type":"Question","name":{{ f.q | json | safe }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a | json | safe }}}}{{ "," if not loop.last }}{% endfor %}]}</script>{% endif %}
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  addEventListener('scroll',function(){var cur=0;links.forEach(function(l,i){var el=document.getElementById(l.getAttribute('href').slice(1));if(el&&el.getBoundingClientRect().top<140)cur=i;});links.forEach(function(l,i){l.classList.toggle('on',i===cur)});},{passive:true});
+  var c=document.getElementById('copylink');if(c)c.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(location.href).then(function(){kToast('Link copied')}).catch(function(){kToast('Copy the address from the bar')});};
+  document.querySelectorAll('.prose a[href^="http"]').forEach(function(a){if(a.host!==location.host){a.target='_blank';if(!/noopener/.test(a.rel))a.rel=(a.rel+' noopener').trim();}});
+})();
+</script>

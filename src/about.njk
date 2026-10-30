@@ -1,0 +1,23 @@
+---
+layout: base.njk
+permalink: /about/
+title: About Kaleido
+description: Kaleido is an independent publication of honest, tested guides to AI tools, automation and running a small business.
+---
+<div class="wrap">
+  <div class="about-hero">
+    <div><h1>Honest guides for people who run small operations</h1><p>Kaleido covers AI tools, automation and the business side of freelancing and small teams. Each guide answers one question for one kind of reader: what works, what it costs, and what to watch out for.</p><p>Kaleido is independent. We do not sell software, so our verdicts can say what the vendor blogs will not.</p></div>
+    <div class="vid"><div class="art">{% scene 3 %}</div></div>
+  </div>
+  <section class="block tight"><div class="sec-head"><div><h2>Our approach</h2></div></div>
+    <div class="approach">
+      <div class="ap rv"><span class="n">Shown, not claimed</span><h3>Real use, real numbers</h3><p>Where we say we tested something, we show what we did. Prices and features are checked on the official pages and dated.</p></div>
+      <div class="ap rv"><span class="n">Plain language</span><h3>Written to be understood</h3><p>Short paragraphs, clear steps, no jargon for its own sake. The answer comes first.</p></div>
+      <div class="ap rv"><span class="n">Useful endings</span><h3>Something you can act on</h3><p>Every guide ends with a verdict or a next step, so reading it changes what you do.</p></div>
+    </div>
+  </section>
+  <section class="block tight">
+    <div class="authorbox" style="max-width:760px"><div class="av">{{ site.author.initials }}</div><div><b><a href="/author/{{ site.author.slug }}/">{{ site.author.name }}</a>, {{ site.author.role }}</b><p>{{ site.author.short }}</p></div></div>
+    <p style="color:var(--fg-2);margin-top:18px;max-width:760px">Read how we research, use AI and make money in our <a href="/editorial-policy/" style="text-decoration:underline">editorial policy</a> and <a href="/affiliate-disclosure/" style="text-decoration:underline">affiliate disclosure</a>.</p>
+  </section>
+</div>

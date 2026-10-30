@@ -1,0 +1,18 @@
+---
+layout: base.njk
+pagination:
+  data: categories
+  size: 1
+  alias: cat
+permalink: "/category/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.name }} guides"
+  description: "{{ cat.desc }}"
+---
+{%- from "macros.njk" import card -%}
+{%- set list = collections.posts | byCategory(cat.name) -%}
+<div class="wrap">
+  <div class="cathead"><div class="ic">{{ cat.icon }}</div><div><h1>{{ cat.name }} <span class="pill">{{ list.length }} article{{ "" if list.length == 1 else "s" }}</span></h1><p>{{ cat.desc }}</p></div><a class="btn" href="/categories/">View all categories</a></div>
+  {% if list.length %}<div class="grid g3">{% for p in list %}{{ card(p) }}{% endfor %}</div>
+  {% else %}<div class="empty">Nothing here yet. The first {{ cat.name }} guide is on its way.</div>{% endif %}
+</div>

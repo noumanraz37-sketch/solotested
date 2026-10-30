@@ -1,0 +1,10 @@
+---
+layout: base.njk
+---
+<div class="wrap">
+  <div class="pagehead"><h1>{{ title }}</h1>{% if intro %}<p>{{ intro }}</p>{% endif %}</div>
+  <div class="page-prose prose" style="max-width:720px">
+    {{ content | safe }}
+    {% if last_updated %}<p class="updated">Last updated: {{ last_updated | displayDate }}</p>{% endif %}
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- set pageTitle = seo_title or (title + " | " + site.name if title else site.name + " | " + site.tagline) %}
+{%- set pageDesc = meta_description or description or site.description %}
+{%- set canonical = site.url + page.url %}
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDesc }}">
+<link rel="canonical" href="{{ canonical }}">
+{% if noindex or (cat and (collections.posts | byCategory(cat.name)).length == 0) %}<meta name="robots" content="noindex, follow">{% endif %}
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:type" content="{{ 'article' if layout == 'post.njk' else 'website' }}">
+<meta property="og:title" content="{{ seo_title or title or site.name }}">
+<meta property="og:description" content="{{ pageDesc }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111115'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EK%3C/text%3E%3Ccircle cx='24' cy='21' r='2.2' fill='%237a2cf5'/%3E%3C/svg%3E">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>document.documentElement.classList.add('js');(function(){var t='light';try{t=localStorage.getItem('kaleido-theme')||'light'}catch(e){}document.documentElement.dataset.theme=t;})();</script>
+
+</head>
+<body>
+<div class="topbar">Honest, tested guides to AI and automation. <a href="#newsletter">Get the weekly email</a></div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="Kaleido home">Kaleido<i></i></a>
+    <nav class="menu" id="menu" aria-label="Main">
+      {%- set nav = [["Home","/"],["Articles","/articles/"],["Categories","/categories/"],["About","/about/"],["Contact","/contact/"]] %}
+      {%- for n in nav %}
+      <a href="{{ n[1] }}" class="{{ 'active' if (page.url == n[1]) or (n[1] == '/articles/' and layout == 'post.njk') or (n[1] == '/categories/' and '/category/' in page.url) }}">{{ n[0] }}</a>
+      {%- endfor %}
+    </nav>
+    <form class="search" action="/articles/" method="get" role="search"><input name="q" type="search" placeholder="Search articles…" aria-label="Search articles"><span aria-hidden="true">⌕</span></form>
+    <a class="btn" href="/contact/">Contact <span class="ar">→</span></a>
+    <button class="theme" id="theme" aria-label="Switch light / dark"><span class="sun">☀</span><span class="moon">☾</span></button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+{{ content | safe }}
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a class="logo" href="/">Kaleido<i></i></a><p>{{ site.description }}</p>
+      <div class="socials">{% for name, url in site.author.links %}<a href="{{ url }}" rel="noopener" target="_blank" aria-label="{{ name }}">{{ name | first }}{{ name[1] }}</a>{% endfor %}</div></div>
+    <div><h4>Pages</h4><ul><li><a href="/">Home</a></li><li><a href="/articles/">Articles</a></li><li><a href="/categories/">Categories</a></li><li><a href="/author/{{ site.author.slug }}/">Author</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+    <div><h4>Categories</h4><ul>{% for c in categories | limit(6) %}<li><a href="/category/{{ c.slug }}/">{{ c.name }}</a></li>{% endfor %}</ul></div>
+    <div><h4>Policies</h4><ul><li><a href="/editorial-policy/">Editorial policy</a></li><li><a href="/affiliate-disclosure/">Affiliate disclosure</a></li><li><a href="/privacy-policy/">Privacy policy</a></li><li><a href="/terms/">Terms of use</a></li></ul></div>
+  </div>
+  <div class="fbottom"><span>© {{ site.year }} Kaleido. All rights reserved.</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/affiliate-disclosure/">Disclosure</a></span></div>
+</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  $('#theme').onclick=function(){var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('kaleido-theme',r.dataset.theme)}catch(e){}};
+  $('#burger').onclick=function(){$('#menu').classList.toggle('open')};
+  // reveal on scroll
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){if(e.getBoundingClientRect().top<innerHeight)e.classList.add('in');else io.observe(e);});}
+  // toast after Netlify form submit (?thanks=1)
+  function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2800);}
+  if(/[?&]thanks=1/.test(location.search))toast('Thanks! Your message has been sent.');
+  if(/[?&]subscribed=1/.test(location.search))toast("Thanks, you're on the list.");
+  window.kToast=toast;
+})();
+</script>
+
+</body>
+</html>

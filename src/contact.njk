@@ -1,0 +1,23 @@
+---
+layout: base.njk
+permalink: /contact/
+title: Contact Kaleido
+description: Get in touch with Kaleido about a correction, a tool to review, or a partnership.
+---
+<div class="wrap">
+  <div class="pagehead"><h1>Contact us</h1><p>Spotted a mistake, want a tool reviewed, or have a partnership idea? Send a message. We read everything.</p></div>
+  <div class="contact">
+    <div><h3 style="font-size:20px;margin-bottom:22px">Send us a message</h3>
+      <form class="form" name="contact" method="POST" action="/contact/?thanks=1" data-netlify="true" netlify-honeypot="company">
+        <input type="hidden" name="form-name" value="contact">
+        <label class="hidden-field">Company <input name="company"></label>
+        <label>Name<input name="name" placeholder="Enter your name" required></label>
+        <label>Email<input name="email" type="email" placeholder="Enter your email" required></label>
+        <label>Your message<textarea name="message" placeholder="Enter your message" required></textarea></label>
+        <button class="btn" type="submit">Send message <span class="ar">→</span></button>
+      </form>
+      <p style="color:var(--fg-2);font-size:14px;margin-top:22px">Or email <a href="mailto:{{ site.email }}" style="text-decoration:underline">{{ site.email }}</a>. We usually reply within two working days.</p>
+    </div>
+    <div class="ph-big"><div class="art">{% scene 1 %}</div></div>
+  </div>
+</div>

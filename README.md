@@ -1,36 +1,31 @@
-# Kaleido — blog / magazine site
+# Kaleido
 
-Single-file static site. No build step, no dependencies.
+Honest, tested guides to AI and automation for freelancers and small teams.
+Built with [Eleventy](https://www.11ty.dev/) and deployed on Netlify. Every push to `main` rebuilds the site.
 
-## Files
-- `index.html` — the whole site (HTML + CSS + JS in one file). All pages (Home, Articles, Categories, Authors, About, Contact, Article) live in this file and switch via the URL hash (`#articles`, `#about`, …).
-- `netlify.toml` — Netlify config (publishes the repo root).
-- `.gitignore`
+## Publish a post
+1. Add a Markdown file to `src/posts/` named after its slug, e.g. `src/posts/make-vs-n8n-freelancers.md`.
+2. Use the front matter from the Kaleido post template (title, seo_title, meta_description, slug, category, date, faq, ...).
+3. Commit and push to `main`. Netlify builds and publishes in about a minute.
 
-## Deploy on Netlify
-1. Push this folder to a GitHub repo.
-2. Netlify → **Add new site → Import an existing project → GitHub** → pick the repo.
-3. Build command: *(leave empty)*. Publish directory: `.` (root). Deploy.
-Every push to `main` redeploys automatically.
+- `draft: true` keeps a post off the live site.
+- A future `date` keeps a post hidden until the first build on or after that date.
+- `affiliate: true` adds the disclosure line at the top. Mark affiliate links as `[Try X](https://...){rel="sponsored nofollow"}`.
+- `cover: /images/file.jpg` (with `cover_alt`) replaces the illustrated cover. Put images in `src/images/`.
 
-## Where to edit things (all in `index.html`)
+## Where things live
 | What | Where |
 |---|---|
-| Site name "Kaleido" | search `Kaleido` (logo, footer, `<title>`) |
-| Categories (name, description, icon) | `const CATS = [...]` in the `<script>` |
-| Authors | `const AUTHORS = [...]` |
-| Articles (title, category, read time, excerpt) | `const T = [...]` — one line per article |
-| Article body text | `renderArticle()` — `H` (headings) and `P` (paragraphs) |
-| Testimonials | `const QUOTES = [...]` |
-| Contact details | the `#v-contact` section |
-| Colors, fonts, spacing | the `:root { ... }` tokens at the top of `<style>` |
-| Purple "Stay in the loop" block | `.loop .r { background:#7a2cf5 }` |
+| Site name, URL, author bio, links | `src/_data/site.js` |
+| Categories | `src/_data/categories.js` |
+| Post layout (byline, TOC, FAQ, schema) | `src/_includes/post.njk` |
+| Header, footer, meta tags | `src/_includes/base.njk` |
+| Cards and newsletter block | `src/_includes/macros.njk` |
+| Styles | `src/assets/style.css` |
+| Policy pages | `src/*.md` |
 
-## Using real photos instead of the illustrated covers
-Covers are generated SVG scenes (`scene(i)` in the script). To use photos:
-1. Put images in an `img/` folder.
-2. Add an `img` field to an article in `T` (e.g. `'img/sleep.jpg'`) and change the `card()` template to output `<img src="${a.img}">` inside `.cover` when it exists.
-Or just ask Claude to wire it up once you have the photos.
+Forms (newsletter, contact) use Netlify Forms. Submissions show in Netlify under **Forms**.
+The sitemap (`/sitemap.xml`) and `robots.txt` are generated on every build. The site URL comes from Netlify's `URL` variable, so it switches to the custom domain automatically.
 
-## Light / dark
-Opens in light mode; the sun/moon button in the header toggles and remembers the choice (localStorage).
+## Local preview
+`npm install` then `npm start` (shows drafts and future posts).
